@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArithmeticProgression;
 use App\Http\Controllers\GeometricProgression;

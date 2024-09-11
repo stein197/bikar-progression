@@ -10,12 +10,15 @@ class Progression extends Controller {
 
     public function __invoke() {
         $req = request();
-        foreach ($this->required as $propName) {
-            $val = $req->query($propName);
+        foreach ($this->required as $k => $v) {
+            $val = $req->query(is_int($k) ? $v : $k);
+            if (!is_int($k) && $v === 'float')
+                continue;
+            // $val = $req->query($v);
             if (IntHelper::tryParse($val) === null)
                 return response()->json([
                     'error' => 1, // TODO: Magic number
-                    'msg' => "The value '{$val}' of the property '{$propName}' is not an integer"
+                    'msg' => "The value '{$val}' of the property '{$v}' is not an integer"
                 ]);
         }
         return null;
